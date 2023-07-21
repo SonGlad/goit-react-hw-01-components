@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
-import { FriendListItem } from './FriendListItem';
 import {FriendListStyle} from './FriendList.styled';
+import {getRandomColor} from 'utils/random-color/random-color';
+import {online, offline} from './FriendList.styled'
 
 
 export const FriendList = ({friends}) => (
     <FriendListStyle>
-        {friends.map(friend => (
-            <FriendListItem
-                key ={friend.id}
-                name ={friend.name}
-                isOnline ={friend.isOnline}
-                avatar ={friend.avatar}
-            />
+        {friends.map(({id, name, isOnline, avatar}) => (
+        <li key={id} className="item" style={{backgroundColor: getRandomColor()}}>
+            <span className={`status ${isOnline ? online : offline}`}></span>
+            <img className="avatar" src={avatar} alt="User avatar" width="48" />
+            <p className="name">{name}</p>
+        </li>
         ))}
     </FriendListStyle>
 );
